@@ -3,6 +3,7 @@ package uk.co.b2esoftware.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import uk.co.b2esoftware.exception.TaskNotFoundException;
 import uk.co.b2esoftware.service.TaskService;
 import uk.co.b2esoftware.vo.TaskDTO;
 
@@ -29,6 +30,7 @@ public class TaskController
     @ResponseBody
     public TaskDTO getTask(@PathVariable final long taskId) throws Exception {
         TaskDTO task = taskService.getTask(taskId);
+        if (task == null) throw new TaskNotFoundException(taskId);
         return task;
     }
 

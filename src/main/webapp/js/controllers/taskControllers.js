@@ -29,20 +29,10 @@ taskControllers.controller('TaskAddCtrl', ['$scope', '$location', 'Task',
 taskControllers.controller('TaskEditCtrl', ['$scope', '$location', '$routeParams', 'Task',
     function($scope, $location, $routeParams, Task) {
 
-        $scope.task = {};
-
-            $scope.update = function () {
+        $scope.update = function () {
             Task.update($scope.task);
             $location.path('/');
         };
 
-        Task.get({id: $routeParams.id})
-            .$promise.then(
-            function( value ){
-                $scope.task = value;
-            },
-            function( error ){
-                console.log(error);
-            }
-        )
+        $scope.task = Task.get({id: $routeParams.id});
 }]);
