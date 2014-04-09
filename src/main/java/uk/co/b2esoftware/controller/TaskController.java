@@ -1,34 +1,59 @@
 package uk.co.b2esoftware.controller;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import uk.co.b2esoftware.service.TaskService;
+import uk.co.b2esoftware.vo.TaskDTO;
+
+import java.util.List;
 
 /**
  * Created by Manuel DEQUEKER on 03/02/2014.
  */
 @Controller
-@RequestMapping("/rest")
+@RequestMapping("/tasks")
 public class TaskController
 {
-    @RequestMapping(value = "/userservice", method = RequestMethod.GET)
-    public ResponseEntity<String> userService()
-    {
-        String typeService = "userservice - OK";
+    @Autowired
+    private TaskService taskService;
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<String>(typeService, responseHeaders, HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public List<TaskDTO> getTasks()
+    {
+        return taskService.getTasks();
     }
 
-    @RequestMapping(value = "/adminservice", method = RequestMethod.GET)
-    public ResponseEntity<String> adminService()
-    {
-        String typeService = "adminservice - OK";
+    @RequestMapping(value = "{taskId}", method = RequestMethod.GET)
+    @ResponseBody
+    public TaskDTO getTask(@PathVariable final long taskId) throws Exception {
+        TaskDTO task = taskService.getTask(taskId);
+        return task;
+    }
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<String>(typeService, responseHeaders, HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public TaskDTO addTask(@RequestBody final TaskDTO task)
+    {
+        taskService.addTask(task);
+        return task;
+    }
+
+    @RequestMapping(value = "{taskId}", method = RequestMethod.PUT)
+    @ResponseBody
+    public TaskDTO updateTask(@PathVariable final long taskId, @RequestBody final TaskDTO task)
+    {
+        taskService.updateTask(taskId, task);
+        return task;
+    }
+
+    @RequestMapping(value = "{taskId}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public TaskDTO deleteTask(@PathVariable final long taskId)
+    {
+        TaskDTO task = taskService.getTask(taskId);
+        taskService.removeTask(taskId);
+        return task;
     }
 }

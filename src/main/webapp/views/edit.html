@@ -8,21 +8,11 @@
                 <input name="name" id="edit-name" type="text" placeholder="Name" ng-model="task.name"/>
             </div>
         </div>
-
+        <br/>
         <div class="form-actions">
-            <a class="btn btn-primary" role="submit" href="#/edit/{{task.id}}">Submit</a>
-            <a class="btn btn-default" role="button" ng-click="cancel()">Cancel</a>
+            <a class="btn btn-primary" role="submit" ng-click="update()">Edit</a>
+            <a class="btn btn-default" role="button" href="#/">Cancel</a>
         </div>
 
     </fieldset>
 </form>
-
-
-<!--<form role="form">-->
-    <!--<div class="form-group">-->
-        <!--<label class="control-label" for="task-name">Name</label>-->
-        <!--<input name="name" id="task-name" type="text" placeholder="Name" ng-model="task.name"/>-->
-    <!--</div>-->
-    <!--<button type="submit" class="btn btn-default">Submit</button>-->
-    <!--<button type="submit" class="btn btn-default">Submit</button>-->
-<!--</form>-->

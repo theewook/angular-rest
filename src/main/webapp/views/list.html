@@ -3,23 +3,21 @@
     <tr>
         <th colspan="2">
             <form class="form-horizontal">
-                <input id="textinput" name="textinput" placeholder="Search" class="input-xlarge" type="text"
-                       ng-model="searchText"/>
+                <input id="textinput" name="textinput" placeholder="Search" class="input-xlarge" type="text" ng-model="searchText"/>
+                <a class="btn btn-success btn-sm pull-right" href="#/add"><span class="glyphicon glyphicon-plus"></span> Add</a>
             </form>
         </th>
     </tr>
     </thead>
-    <tbody id="bookmarks-list">
+    <tbody>
     <tr ng-repeat="task in tasks | filter:searchText">
         <td>
             <span>{{task.name}}</span>
         </td>
         <td>
             <div class="btn-group pull-right">
-                <a class="btn btn-warning" href="#/edit/{{bookmark.id}}" title="edit">
-                    <i class="icon-edit icon-white"></i></a>
-                <a href="#" class="btn btn-danger" ng-click="delete(bookmark.id)" title="delete"><i
-                        class="icon-trash icon-white"></i></a>
+                <a class="btn btn-warning btn-sm" role="button" href="#/edit/{{task.id}}"><span class="glyphicon glyphicon-edit"></span></a>
+                <a class="btn btn-danger btn-sm" role="button" ng-click="deleteTask(task.id)"><span class="glyphicon glyphicon-trash"></span></a>
             </div>
         </td>
     </tr>
